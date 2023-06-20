@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -22,9 +21,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(request);
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUser (@PathVariable String id_user) {
-        User user = userService.getUser(id_user);
+    @GetMapping("/users/{idUser}")
+    public ResponseEntity<User> getUser (@PathVariable String idUser) {
+        User user = userService.getUser(idUser);
         return ResponseEntity.ok(user);
     }
 
