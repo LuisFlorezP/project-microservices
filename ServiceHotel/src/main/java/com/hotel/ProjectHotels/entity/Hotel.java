@@ -16,6 +16,7 @@ public class Hotel {
     @Id
     @Column(name = "id_hotel")
     private String idHotel;
+    private String name;
     private String information;
     private String location;
 
@@ -25,6 +26,14 @@ public class Hotel {
 
     public void setIdHotel(String idHotel) {
         this.idHotel = idHotel;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getInformation() {
