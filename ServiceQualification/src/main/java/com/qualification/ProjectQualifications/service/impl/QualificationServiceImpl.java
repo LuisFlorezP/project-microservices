@@ -4,9 +4,10 @@ import com.qualification.ProjectQualifications.entity.Qualification;
 import com.qualification.ProjectQualifications.repository.QualificationRepository;
 import com.qualification.ProjectQualifications.service.QualificationService;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class QualificationServiceImpl implements QualificationService {
 
     @Autowired
