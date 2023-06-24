@@ -1,11 +1,9 @@
 server:
-  port: 8085
-  servlet:
-    context-path: /eurekaServer
+  port: 8761
 
 eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
   instance:
     hostname: localhost
-  client:
-    register-with-eureka: false
-    fetch-registry: false

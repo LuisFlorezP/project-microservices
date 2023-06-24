@@ -19,3 +19,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+  application:
+    name: SERVICE-HOTEL
+  cloud:
+    discovery:
+      client:
+        simple:
+          service-uri: http://localhost:8761/eureka
