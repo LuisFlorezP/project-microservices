@@ -1,6 +1,6 @@
 package com.users.ProyectUsers.service;
 
-import com.users.ProyectUsers.entity.User;
+import com.users.ProyectUsers.entities.User;
 
 import java.util.List;
 

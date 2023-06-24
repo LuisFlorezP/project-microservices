@@ -1,6 +1,6 @@
 package com.users.ProyectUsers.controller;
 
-import com.users.ProyectUsers.entity.User;
+import com.users.ProyectUsers.entities.User;
 import com.users.ProyectUsers.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

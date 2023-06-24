@@ -1,11 +1,10 @@
-package com.users.ProyectUsers.entity;
+package com.users.ProyectUsers.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +18,8 @@ public class User {
     private String name;
     private int year;
     private String email;
+    @Transient
+    private List<Qualification> qualifications = new ArrayList<>();
 
     public String getIdUser() {
         return idUser;
@@ -50,5 +51,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Qualification> getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(List<Qualification> qualifications) {
+        this.qualifications = qualifications;
     }
 }
