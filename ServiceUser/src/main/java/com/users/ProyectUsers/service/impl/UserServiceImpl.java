@@ -39,10 +39,10 @@ public class UserServiceImpl implements UserService {
     public User getUser(String idUser) {
         User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with the id: " + idUser));
-        Qualification[] qualificationsUser = restTemplate.getForObject("http://localhost:8083/qualificationsUdemy/qualifications/users/" + idUser, Qualification[].class);
+        Qualification[] qualificationsUser = restTemplate.getForObject("http://SERVICE-QUALIFICATION/qualificationsUdemy/qualifications/users/" + idUser, Qualification[].class);
         List<Qualification> qualifications = Arrays.stream(qualificationsUser).collect(Collectors.toList());
         for (Qualification qualification : qualifications) {
-            Hotel hotelQualification = restTemplate.getForObject("http://localhost:8082/hotelsUdemy/hotels/" + qualification.getHotelId(), Hotel.class);
+            Hotel hotelQualification = restTemplate.getForObject("http://SERVICE-HOTEL/hotelsUdemy/hotels/" + qualification.getHotelId(), Hotel.class);
             qualification.setHotel(hotelQualification);
         }
         user.setQualifications(qualifications);
