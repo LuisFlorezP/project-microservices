@@ -1,0 +1,30 @@
+server:
+  port: 8088
+
+springdoc:
+  swagger-ui.path: /swaggerDocs
+  api-docs.enabled: true
+  swagger-ui.enabled: true
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: SERVICE-USER
+          uri: lb://SERVICE-USER
+          predicates:
+            - Path=/usersUdemy/users/**
+        - id: SERVICE-HOTEL
+          uri: lb://SERVICE-HOTEL
+          predicates:
+            - Path=/hotelsUdemy/hotels/**
+        - id: SERVICE-QUALIFICATION
+          uri: lb://SERVICE-QUALIFICATION
+          predicates:
+            - Path=/qualificationsUdemy/qualifications/**
+    discovery:
+      client:
+        simple:
+          service-uri: http://localhost:8761/eureka
