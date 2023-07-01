@@ -34,7 +34,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        for (User user : users) {
+            Qualification[] qualificationsUser = restTemplate.getForObject("http://SERVICE-QUALIFICATION/qualificationsUdemy/qualifications/users/" + user.getIdUser(), Qualification[].class);
+            List<Qualification> qualifications = Arrays.stream(qualificationsUser).collect(Collectors.toList());
+            for (Qualification qualification : qualifications) {
+                // USE REST TEMPLATE ---> Hotel hotelQualification = restTemplate.getForObject("http://SERVICE-HOTEL/hotelsUdemy/hotels/" + qualification.getHotelId(), Hotel.class);
+                Hotel hotelQualification = hotelService.getHotel(qualification.getHotelId());
+                qualification.setHotel(hotelQualification);
+            }
+            user.setQualifications(qualifications);
+        }
+        return users;
     }
 
     @Override
