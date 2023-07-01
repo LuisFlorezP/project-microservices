@@ -19,7 +19,7 @@ spring:
         - id: SERVICE-HOTEL
           uri: lb://SERVICE-HOTEL
           predicates:
-            - Path=/hotelsUdemy/hotels/**
+            - Path=/hotelsUdemy/hotels/**,/hotelsUdemy/staffs/**
         - id: SERVICE-QUALIFICATION
           uri: lb://SERVICE-QUALIFICATION
           predicates:
