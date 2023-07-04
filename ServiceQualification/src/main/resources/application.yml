@@ -12,10 +12,8 @@ spring:
   data:
     mongodb:
       database: qualificationsMicroservices
-  application:
-    name: SERVICE-QUALIFICATION
-  cloud:
-    discovery:
-      client:
-        simple:
-          service-uri: http://localhost:8761/eureka
+  config:
+    import: optional:configserver:http://localhost:8089
+  profiles:
+    active: qualification
+

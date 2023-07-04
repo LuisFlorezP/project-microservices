@@ -22,10 +22,5 @@ spring:
       hibernate:
         format_sql: false
         dialect: org.hibernate.dialect.SQLServerDialect
-  application:
-    name: SERVICE-USER
-  cloud:
-    discovery:
-      client:
-        simple:
-          service-uri: http://localhost:8761/eureka
+  config:
+    import: optional:configserver:http://localhost:8089
