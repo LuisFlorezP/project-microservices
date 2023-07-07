@@ -2,7 +2,7 @@ package com.users.ProyectUsers.controller;
 
 import com.users.ProyectUsers.entities.User;
 import com.users.ProyectUsers.service.UserService;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Slf4j
@@ -28,10 +29,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(request);
     }
 
+    int amountIntents = 1;
     @Operation(summary = "Method to get a user register.")
     @GetMapping("/{idUser}")
-    @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
+    //@CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
+    @Retry(name = "ratingHotelService", fallbackMethod = "ratingHotelFallback")
     public ResponseEntity<User> getUser (@PathVariable String idUser) {
+        log.info("List of a one User: UserController");
+        log.info("Amount intents: {}", amountIntents);
+        amountIntents++;
         User user = userService.getUser(idUser);
         return ResponseEntity.ok(user);
     }
