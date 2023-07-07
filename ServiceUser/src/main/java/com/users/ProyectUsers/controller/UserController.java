@@ -2,14 +2,17 @@ package com.users.ProyectUsers.controller;
 
 import com.users.ProyectUsers.entities.User;
 import com.users.ProyectUsers.service.UserService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @Tag(name = "Services of Users", description = "Services to the User entity.")
@@ -27,6 +30,7 @@ public class UserController {
 
     @Operation(summary = "Method to get a user register.")
     @GetMapping("/{idUser}")
+    @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
     public ResponseEntity<User> getUser (@PathVariable String idUser) {
         User user = userService.getUser(idUser);
         return ResponseEntity.ok(user);
@@ -37,5 +41,15 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers () {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    public ResponseEntity<User> ratingHotelFallback(Exception exception) {
+        log.info("Backup runs because the service is down", exception.getMessage());
+        return new ResponseEntity<>(User.builder()
+                .name("root")
+                .idUser("123")
+                .email("root@gmail.com")
+                .year(0)
+                .build(), HttpStatus.OK);
     }
 }
