@@ -22,6 +22,8 @@ spring:
       hibernate:
         format_sql: false
         dialect: org.hibernate.dialect.SQLServerDialect
+  application:
+    name: SERVICE-USER
   config:
     import: optional:configserver:http://localhost:8089
 
